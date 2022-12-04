@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_image_size">50dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="middle_margin">16dp</dimen>
+    <dimen name="company_img_height">194dp</dimen>
+</resources>

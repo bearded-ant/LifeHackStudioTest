@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LifeHackStudioTest</string>
+    <string name="fragmentCompanyPhoto">fragmentCompanyPhoto</string>
+    <string name="fragmentCompanyName">fragmentCompanyName</string>
+    <string name="fragmentCompanyPhone">8 987 654 32 10</string>
+    <string name="fragmentCompanySite">site</string>
 </resources>
