@@ -2,6 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemCard"
+    android:elevation="4dp"
+    android:layout_marginVertical="@dimen/small_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,9 +15,9 @@
             android:id="@+id/itemImage"
             android:layout_width="@dimen/small_image_size"
             android:layout_height="@dimen/small_image_size"
-            android:layout_margin="@dimen/small_margin"
-            android:background="@color/material_dynamic_secondary50"
-            app:shapeAppearanceOverlay="@style/roundedImageView"/>
+            android:layout_marginHorizontal="@dimen/small_margin"
+            android:background="@color/teal_200"
+            app:shapeAppearanceOverlay="@style/roundedImageView" />
 
         <TextView
             android:id="@+id/itemCompanyName"

@@ -12,5 +12,4 @@ class CompaniesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val companyImg = itemView.findViewById<ShapeableImageView>(R.id.itemImage)
     val companyName = itemView.findViewById<TextView>(R.id.itemCompanyName)
     val companyCard = itemView.findViewById<MaterialCardView>(R.id.itemCard)
-
 }
