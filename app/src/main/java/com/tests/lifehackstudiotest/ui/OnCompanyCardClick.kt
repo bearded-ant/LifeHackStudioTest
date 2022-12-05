@@ -1,5 +1,5 @@
 package com.tests.lifehackstudiotest.ui
 
 interface OnCompanyCardClick {
-    fun companyCardClicked(position:Int)
+    fun companyCardClicked(companyId: String)
 }

@@ -8,16 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tests.lifehackstudiotest.databinding.FragmentCompaniesBinding
 import com.tests.lifehackstudiotest.domain.Companies
-import com.tests.lifehackstudiotest.domain.CompaniesService
+import com.tests.lifehackstudiotest.network.RetrofitLayer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+
 
 class CompaniesFragment : Fragment(), OnCompanyCardClick {
 
@@ -36,7 +33,7 @@ class CompaniesFragment : Fragment(), OnCompanyCardClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val dataResponse = initRetrofit()
+        val dataResponse = RetrofitLayer.newInstance().dataService
 
         dataResponse.getCompaniesList().enqueue(object : Callback<List<Companies>> {
             override fun onResponse(
@@ -71,20 +68,10 @@ class CompaniesFragment : Fragment(), OnCompanyCardClick {
         _binding = null
     }
 
-    override fun companyCardClicked(position: Int) {
-        Toast.makeText(requireContext(), "$position", Toast.LENGTH_SHORT).show()
+    override fun companyCardClicked(companyId: String) {
+        Toast.makeText(requireContext(), "$companyId", Toast.LENGTH_SHORT).show()
         val action =
-            CompaniesFragmentDirections.actionCompaniesFragmentToCompanyCardFragment(position)
+            CompaniesFragmentDirections.actionCompaniesFragmentToCompanyCardFragment(companyId)
         findNavController().navigate(action)
     }
-}
-
-private fun initRetrofit(): CompaniesService {
-
-    val moshi: Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-    val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .build()
-    return retrofit.create(CompaniesService::class.java)
 }

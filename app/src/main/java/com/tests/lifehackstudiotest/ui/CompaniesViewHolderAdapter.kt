@@ -23,7 +23,7 @@ class CompaniesViewHolderAdapter(
         Picasso.get().load(companies[position].img).into(holder.companyImg)
 
         holder.companyCard.setOnClickListener {
-            clickListener.companyCardClicked(position)
+            clickListener.companyCardClicked(companies[position].id)
         }
     }
 
