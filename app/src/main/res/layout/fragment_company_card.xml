@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/company_img_height"
             android:contentDescription="@string/fragmentCompanyPhoto"
-            android:background="@color/material_dynamic_secondary50"
+            android:background="@color/teal_700"
             android:scaleType="fitCenter"
             />
 

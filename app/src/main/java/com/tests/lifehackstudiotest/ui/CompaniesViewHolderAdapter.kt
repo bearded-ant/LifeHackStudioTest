@@ -8,7 +8,8 @@ import com.tests.lifehackstudiotest.R
 import com.tests.lifehackstudiotest.domain.Companies
 
 class CompaniesViewHolderAdapter(
-    private val companies: List<Companies>
+    private val companies: List<Companies>,
+    private val clickListener: OnCompanyCardClick
 ) : RecyclerView.Adapter<CompaniesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesViewHolder {
         val view =
@@ -20,6 +21,10 @@ class CompaniesViewHolderAdapter(
     override fun onBindViewHolder(holder: CompaniesViewHolder, position: Int) {
         holder.companyName.text = companies[position].name
         Picasso.get().load(companies[position].img).into(holder.companyImg)
+
+        holder.companyCard.setOnClickListener {
+            clickListener.companyCardClicked(position)
+        }
     }
 
     override fun getItemCount(): Int = companies.size

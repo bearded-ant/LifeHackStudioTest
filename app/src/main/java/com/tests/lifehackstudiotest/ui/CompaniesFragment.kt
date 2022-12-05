@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -18,7 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class CompaniesFragment : Fragment() {
+class CompaniesFragment : Fragment(), OnCompanyCardClick {
 
     private var _binding: FragmentCompaniesBinding? = null
     private val binding
@@ -62,7 +63,19 @@ class CompaniesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
-        recyclerView.adapter = CompaniesViewHolderAdapter(companies)
+        recyclerView.adapter = CompaniesViewHolderAdapter(companies, this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun companyCardClicked(position: Int) {
+        Toast.makeText(requireContext(), "$position", Toast.LENGTH_SHORT).show()
+        val action =
+            CompaniesFragmentDirections.actionCompaniesFragmentToCompanyCardFragment(position)
+        findNavController().navigate(action)
     }
 }
 

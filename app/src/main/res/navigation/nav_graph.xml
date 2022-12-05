@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/companiesFragment"
         android:name="com.tests.lifehackstudiotest.ui.CompaniesFragment"
-        android:label="CompaniesFragment" />
+        android:label="CompaniesFragment" >
+        <action
+            android:id="@+id/action_companiesFragment_to_companyCardFragment"
+            app:destination="@id/companyCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyCardFragment"
+        android:name="com.tests.lifehackstudiotest.ui.CompanyCardFragment"
+        android:label="CompanyCardFragment" >
+        <argument
+            android:name="clickPosition"
+            app:argType="integer" />
+    </fragment>
 </navigation>
