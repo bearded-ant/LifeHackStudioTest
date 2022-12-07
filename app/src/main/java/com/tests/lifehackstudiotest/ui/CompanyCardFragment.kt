@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.tests.lifehackstudiotest.databinding.FragmentCompanyCardBinding
-import com.tests.lifehackstudiotest.domain.CompanyCard
-import com.tests.lifehackstudiotest.network.RetrofitLayer
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.tests.lifehackstudiotest.domain.CompaniesViewModel
 
 class CompanyCardFragment : Fragment() {
 
     private var _binding: FragmentCompanyCardBinding? = null
     private val binding
         get() = _binding!!
+
+    val companiesViewModel: CompaniesViewModel by lazy {
+        ViewModelProvider(this)[CompaniesViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,20 +31,15 @@ class CompanyCardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (arguments != null) {
             val myArguments = CompanyCardFragmentArgs.fromBundle(requireArguments()).clickPosition
-            val dataResponse = RetrofitLayer.newInstance().dataService
+            companiesViewModel.companyCardRefresh(myArguments)
+            companiesViewModel.companyCardLiveData.observe(requireActivity()) { response ->
 
-            dataResponse.getCompanyCardById(myArguments).enqueue(object :
-                Callback<List<CompanyCard>> {
-                override fun onResponse(call: Call<List<CompanyCard>>, response: Response<List<CompanyCard>>) {
-                    binding.fragmentCompanyName.text = response.body()!![0].name
-                    binding.fragmentCompanyPhone.text = response.body()!![0].phone
-                    binding.fragmentCompanySite.text = response.body()!![0].www
-                }
+                val dataResponse = response[0]
 
-                override fun onFailure(call: Call<List<CompanyCard>>, t: Throwable) {
-                    Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show()
-                }
-            })
+                binding.fragmentCompanyName.text = dataResponse.name
+                binding.fragmentCompanyPhone.text = dataResponse.phone
+                binding.fragmentCompanySite.text = dataResponse.www
+            }
         }
     }
 
